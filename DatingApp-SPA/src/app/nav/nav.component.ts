@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/Alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -14,26 +15,20 @@ export class NavComponent implements OnInit {
     'And another choice for you.',
     'but wait! A third!'
   ];
-    constructor(public authService: AuthService, private alertify: AlertifyService) { }
+    constructor(public authService: AuthService, private alertify: AlertifyService,
+                private router: Router) { }
 
   ngOnInit() {
-  }
- 
- 
-  onHidden(): void {
-    console.log('Dropdown is hidden');
-  }
-  onShown(): void {
-    console.log('Dropdown is shown');
-  }
-  isOpenChange(): void {
-    console.log('Dropdown state is changed');
   }
 
   login() {
     this.authService.login(this.model)
-    .subscribe(next => { this.alertify.success('Logged in successfully'); },
-               error => { this.alertify.error(error); } );
+    .subscribe(next => {
+                 this.alertify.success('Logged in successfully'); },
+               error => {
+                 this.alertify.error(error); }, () => {
+                   this.router.navigate(['/members']);
+                 } );
   }
 
   loggedIn() {
@@ -43,6 +38,7 @@ export class NavComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     this.alertify.message('logged out');
+    this.router.navigate(['/home']);
   }
 
 }
