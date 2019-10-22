@@ -1,15 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/Forms'; // Import Angular Forms functions
+import {FormsModule} from '@angular/forms'; // Import Angular Forms functions
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
-import { HttpClient } from 'selenium-webdriver/http';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './Home/Home.component';
 import { RegisterComponent } from './Register/Register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+
 
 @NgModule({
    declarations: [
@@ -21,7 +22,8 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
    imports: [
       BrowserModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      BsDropdownModule.forRoot()
    ],
    providers: [
       AuthService,
